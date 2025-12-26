@@ -4,3 +4,4 @@ plotly
 mftool
 ta
 scipy
+deprecated
