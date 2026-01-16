@@ -1,0 +1,22 @@
+name: WhatsApp Daily Alert
+on:
+  schedule:
+    - cron: '30 3 * * *' # This is 9:00 AM IST
+  workflow_dispatch: # This adds a "Run Now" button for testing
+
+jobs:
+  send-alert:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      - name: Install dependencies
+        run: pip install pandas mftool ta requests
+      - name: Run Notifier
+        env:
+          WHATSAPP_API_KEY: ${{ secrets.WHATSAPP_API_KEY }}
+          WHATSAPP_PHONE: ${{ secrets.WHATSAPP_PHONE }}
+        run: python notifier.py
